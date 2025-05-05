@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  client:
+    build: ./client
+    image: santhuru/movie-app:1.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+  backend:
+    build: ./backend
+    image: santhuru/movie-app-back:1.0
+    ports:
+      - "5002:5002"
+    environment:
+      - MONOGO_URL=mongodb://27017/mydb
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  
